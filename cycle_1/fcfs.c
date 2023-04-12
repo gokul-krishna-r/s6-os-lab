@@ -1,18 +1,15 @@
-#include<stdio.h>
+#include <stdio.h>
 #include <unistd.h>
-#include <fcntl.h>
+#include <stdlib.h>
+#include <sys/types.h>
+#include <sys/wait.h>
 
-void delayProcess(){
-    pid_t p=fork();
-    float delay=100000;
-    while(delay>0){
-        delay--;
-    }
-} 
+
 void main(){
     int ArrT[20],BurstT[20];
     int WaitT[20],TurnT[20];
     int p;
+    int pid[20];
 
     WaitT[0]=0; //Waiting time of initial process is 0
 
@@ -37,10 +34,22 @@ void main(){
     }
     
     for(int i=0;i<p;i++){
-       printf("Process %d Start\n",i);
-       delayProcess();
-       printf("Process %d Ended\n",i);
+      pid[i]=fork();
+      if(pid[i]==0){
+           sleep(ArrT[i]);
+           printf("Process %d started\n",i+1);
+           float delay=500000;
+           while(delay>0){
+            delay--;
+           }
+           printf("Process %d stopped\n",i+1);
+           exit(0);
+      } 
+    else{
+        waitpid(pid[i],NULL,0);
+        }
     }
+    
    
     printf("Si No:\tArrival Time\tBurst Time\tWaiting time\tTurnAround Time\n");
     
