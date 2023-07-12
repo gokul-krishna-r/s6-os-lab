@@ -9,6 +9,7 @@ int main()
     int BurstT[20];
     int WaitT[20],TurnT[20];
     int p;
+    float AvgWaitT=0,AvgTurnT=0;
     int pid[20];
     int fid[20];
 
@@ -17,7 +18,7 @@ int main()
     printf("Enter number of processes required: ");
     scanf("%d",&p);
     
-    printf("Enter Burst of processes:\n  Burst Time\n");
+    printf("Enter Burst Time of processes:\n  Burst Time\n");
     
     for(int i=0;i<p;i++){
         printf("%d: " ,i+1);
@@ -37,36 +38,24 @@ int main()
             }
         }
     }
-
-    for(int i=0;i<p;i++){
-      fid[i]=fork();
-      if(fid[i]==0){
-           printf("Process %d started\n",pid[i]+1);
-           sleep(1);
-           printf("Process %d stopped\n",pid[i]+1);
-           exit(0);
-      }else{
-        waitpid(fid[i],NULL,0);
-     }
-    }
-    
-   
-   
  
     //Calculating Waiting Time
     for(int i=1;i<p;i++){
         WaitT[i]=WaitT[i-1]+BurstT[i-1];
+
     }
 
     //Calculating TurnAround Time
     for(int i=0;i<p;i++){
         TurnT[i]=BurstT[i]+WaitT[i];
+        AvgWaitT+=WaitT[i];
+        AvgTurnT+=TurnT[i];    
     }
     printf("Si No:\tBurst Time\tWaiting time\tTurnAround Time\n");
     
     for(int i=0;i<p;i++){
-                        printf("%d\t\t%d\t\t%d\t\t%d\n",pid[i]+1,BurstT[i],WaitT[i],TurnT[i]);
-        
+        printf("%d\t\t%d\t\t%d\t\t%d\n",pid[i]+1,BurstT[i],WaitT[i],TurnT[i]);   
     }
+     printf("Avgerage Waiting Time: %f \n Average Turnaround Time: %f\n",AvgWaitT/p,AvgTurnT/p);
     return 0;
 }
