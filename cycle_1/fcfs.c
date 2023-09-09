@@ -14,7 +14,6 @@ void main(){
     int fid[20];
 
     WaitT[0]=0; //Waiting time of initial process is 0
-
     printf("Enter number of processes required: ");
     scanf("%d",&p);
     
@@ -47,6 +46,16 @@ void main(){
     for(int i=1;i<p;i++){
         WaitT[i]=WaitT[i-1]+BurstT[i-1];
     }
+    //Alternative
+    // WaitT[0]=0;
+	// CompT[0]=BurstT[0]+WaitT[0];
+	// TurnT[0]=CompT[0]-ArrT[0];
+	// for(int i=1;i<pno;i++){
+	// 	CompT[i]=CompT[i-1]+BurstT[i];
+	// 	TurnT[i]=CompT[i]-ArrT[i];
+	// 	WaitT[i]=TurnT[i]-BurstT[i];
+	// }
+	   
     //Calculating TurnAround Time
     for(int i=0;i<p;i++){
         TurnT[i]=BurstT[i]+WaitT[i];
