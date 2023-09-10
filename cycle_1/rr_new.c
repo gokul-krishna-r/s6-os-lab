@@ -29,6 +29,7 @@ int main(){
 		processes[i].pid=i+1;
 
     }
+    
     struct Process temp;
      for (int i = 0; i < p; i++)
     {
