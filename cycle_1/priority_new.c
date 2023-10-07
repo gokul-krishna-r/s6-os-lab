@@ -67,10 +67,7 @@ int main(){
 
     printf("\nProcess[%d]\t\t%d\t\t %d\t\t %d\n", processes[greatest].pid, processes[greatest].burstT, processes[greatest].turnT,processes[greatest].waitT);
 		}
-		count++;
-		if(count==p){
-			break;
-		}
+	
 	}
 	
     printf("Si No:\tArrival Time\tBurst Time\tWaiting time\tTurnAround Time\n");

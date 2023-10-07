@@ -59,19 +59,16 @@ int main(){
 		
 		if(processes[smallest].remain>0){
 			processes[smallest].remain=0;
-			flag=1;
 			time=time+processes[smallest].burstT+maxof(processes[smallest].arrT-time,0);
-		}
-		
-		
-		if(processes[smallest].remain==0 && flag==1){
 			processes[smallest].compT = time;
     		processes[smallest].turnT = processes[smallest].compT-processes[smallest].arrT;
     		processes[smallest].waitT = processes[smallest].turnT-processes[smallest].burstT;
     		wait_time += processes[smallest].waitT;
             turnaround_time += processes[smallest].turnT;
-    		flag=0;
 		}
+		
+		
+	
 		
 
 	}
